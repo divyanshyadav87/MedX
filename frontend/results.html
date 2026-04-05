@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results — CureEye</title>
+  <meta name="description" content="Detailed medicine analysis results from CureEye.">
+  <link rel="stylesheet" href="/css/globals.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/results.css">
+</head>
+<body>
+  <canvas id="particles-canvas"></canvas>
+  <div class="ambient-glow"></div>
+
+  <div class="page-wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+      <div class="container">
+        <a href="/" class="navbar-logo">
+          <span class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5C7.5 5 3.73 8.11 2 12C3.73 15.89 7.5 19 12 19C16.5 19 20.27 15.89 22 12C20.27 8.11 16.5 5 12 5Z" stroke="url(#cureeye-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3" fill="#10B981"/>
+              <defs>
+                <linearGradient id="cureeye-grad" x1="2" y1="12" x2="22" y2="12" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#8B5CF6"/>
+                  <stop offset="1" stop-color="#06B6D4"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </span>
+          CureEye
+        </a>
+
+        <div class="navbar-links" id="navLinks">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/dashboard.html" class="nav-link">Dashboard</a>
+          <a href="/history.html" class="nav-link">History</a>
+        </div>
+
+        <div class="navbar-actions" id="navActions">
+          <span class="navbar-user-email" id="userEmail"></span>
+          <button class="btn btn-ghost btn-sm" id="signOutBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign out
+          </button>
+        </div>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="mobile-nav-overlay" id="mobileNav">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/dashboard.html" class="nav-link">Dashboard</a>
+      <a href="/history.html" class="nav-link">History</a>
+      <span class="nav-link" id="mobileUserEmail" style="color:var(--text-muted);"></span>
+      <button class="btn btn-ghost" id="mobileSignOutBtn">Sign out</button>
+    </div>
+
+    <main class="results-page ethereal-theme">
+      <div class="container ethereal-container">
+        <!-- Top bar -->
+        <div class="results-topbar ethereal-topbar">
+          <a class="results-back" id="backBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Back
+          </a>
+          <div class="results-actions">
+            <button class="results-action-btn" id="favoriteBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              Favorite
+            </button>
+            <button class="results-action-btn" id="shareBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              Share
+            </button>
+          </div>
+        </div>
+
+        <div class="ethereal-layout">
+          <!-- Top Row -->
+          <div class="ethereal-top-section">
+            <div class="ethereal-hero-left">
+              <div class="ethereal-art-block glass-card-static">
+                <img id="uploadedMedicineImage" src="" alt="Scanned Medicine" style="display:none; width:100%; height:100%; object-fit:cover; position:absolute; z-index:1; border-radius:16px;">
+                <div class="abstract-glow" style="z-index:2;"></div>
+                <div class="abstract-scan-line" style="z-index:3;"></div>
+                <div id="artMedicineName" class="art-medicine-text" style="z-index:4;">Loading...</div>
+              </div>
+            </div>
+
+            <div class="ethereal-hero-right">
+              <div class="ethereal-header">
+                <div class="ethereal-badges" id="etherealBadges"></div>
+                <h1 id="medicineNameEthereal">Loading...</h1>
+                <div class="ethereal-generic" id="medicineGenericEthereal"></div>
+              </div>
+              
+              <div class="ethereal-top-cards">
+                <div class="ethereal-card ethereal-price ethereal-accent-green">
+                   <div class="ethereal-tiny-label">APPROXIMATE PRICE</div>
+                   <div class="ethereal-price-value" id="priceValue">--</div>
+                </div>
+                <div class="ethereal-card ethereal-uses ethereal-accent-purple">
+                   <div class="ethereal-tiny-label">PRIMARY USES</div>
+                   <div class="ethereal-uses-list" id="usesList"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Middle Grid -->
+          <div class="ethereal-middle-grid">
+            <div class="ethereal-card ethereal-dosage">
+               <div class="ethereal-card-header dosage-header">
+                 <div class="ethereal-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                 <h3>Dosage</h3>
+               </div>
+               <p id="dosageText" class="ethereal-text">...</p>
+               <div class="ethereal-pill-box">As prescribed by doctor</div>
+            </div>
+
+            <div class="ethereal-card ethereal-warnings ethereal-accent-red wide-cell">
+               <div class="ethereal-card-header warning-header">
+                 <div class="ethereal-icon red-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+                 <h3 class="red-text">Clinical Warnings</h3>
+               </div>
+               <div class="ethereal-inner-warnings-grid" id="warningsGrid"></div>
+            </div>
+
+            <div class="ethereal-card ethereal-side-effects wide-cell" style="position:relative;">
+               <div class="ethereal-card-header side-effects-header">
+                 <div class="ethereal-icon amber-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+                 <h3>Common Side Effects</h3>
+               </div>
+               <div class="ethereal-pills-row" id="sideEffectsPills"></div>
+               <div class="disclaimer-text">*If these symptoms persist, consult your healthcare provider immediately.</div>
+               <a href="/dashboard.html" class="ethereal-floating-cta">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4v4h4M21 4v4h-4M21 20v-4h-4M3 20v-4h4"/><circle cx="12" cy="12" r="3"/></svg>
+                  Scan Another Medicine
+               </a>
+            </div>
+
+            <div class="ethereal-card ethereal-ingredients">
+               <div class="ethereal-card-header ingredients-header">
+                 <div class="ethereal-icon blue-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+                 <h3>Ingredients</h3>
+               </div>
+               <div class="ethereal-tiny-label">ACTIVE SUBSTANCE</div>
+               <div id="ingredientsText" class="ethereal-ingredients-value ethereal-text"></div>
+            </div>
+            
+            <div class="ethereal-card ethereal-precautions full-width-cell">
+               <div class="ethereal-card-header precautions-header">
+                 <div class="ethereal-icon green-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                 <h3>General Precautions</h3>
+               </div>
+               <div class="ethereal-precautions-list" id="precautionsPills"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="/js/main.js" type="module"></script>
+  <script src="/js/results.js" type="module"></script>
+</body>
+</html>

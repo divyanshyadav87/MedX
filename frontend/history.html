@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan History — CureEye</title>
+  <meta name="description" content="View your previously scanned medicines and their detailed analysis results.">
+  <link rel="stylesheet" href="/css/globals.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/history.css">
+</head>
+<body>
+  <canvas id="particles-canvas"></canvas>
+  <div class="ambient-glow"></div>
+
+  <div class="page-wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+      <div class="container">
+        <a href="/" class="navbar-logo">
+          <span class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5C7.5 5 3.73 8.11 2 12C3.73 15.89 7.5 19 12 19C16.5 19 20.27 15.89 22 12C20.27 8.11 16.5 5 12 5Z" stroke="url(#cureeye-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3" fill="#10B981"/>
+              <defs>
+                <linearGradient id="cureeye-grad" x1="2" y1="12" x2="22" y2="12" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#8B5CF6"/>
+                  <stop offset="1" stop-color="#06B6D4"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </span>
+          CureEye
+        </a>
+
+        <div class="navbar-links" id="navLinks">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/dashboard.html" class="nav-link">Dashboard</a>
+          <a href="/history.html" class="nav-link active">History</a>
+        </div>
+
+        <div class="navbar-actions" id="navActions">
+          <span class="navbar-user-email" id="userEmail"></span>
+          <button class="btn btn-ghost btn-sm" id="signOutBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign out
+          </button>
+        </div>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="mobile-nav-overlay" id="mobileNav">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/dashboard.html" class="nav-link">Dashboard</a>
+      <a href="/history.html" class="nav-link active">History</a>
+      <span class="nav-link" id="mobileUserEmail" style="color:var(--text-muted);"></span>
+      <button class="btn btn-ghost" id="mobileSignOutBtn">Sign out</button>
+    </div>
+
+    <main class="history-page">
+      <div class="container">
+        <div class="history-header">
+          <h1 class="heading-gradient">Scan History</h1>
+          <p>Your previously scanned medicines</p>
+        </div>
+
+        <div class="history-search">
+          <div class="search-input-group">
+            <div class="search-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search medicines...">
+          </div>
+        </div>
+
+        <div class="history-list" id="historyList">
+          <!-- Items populated by JS -->
+        </div>
+
+        <!-- Empty state -->
+        <div class="history-empty" id="historyEmpty" style="display:none;">
+          <div class="history-empty-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>No scans yet</h3>
+          <p>Start by scanning your first medicine</p>
+          <a href="/dashboard.html" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Scan Medicine
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="/js/main.js" type="module"></script>
+  <script src="/js/history.js" type="module"></script>
+</body>
+</html>

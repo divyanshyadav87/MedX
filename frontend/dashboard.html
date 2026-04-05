@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — CureEye</title>
+  <meta name="description" content="Scan and identify medicines instantly with CureEye dashboard.">
+  <link rel="stylesheet" href="/css/globals.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+  <canvas id="particles-canvas"></canvas>
+  <div class="ambient-glow"></div>
+
+  <div class="page-wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+      <div class="container">
+        <a href="/" class="navbar-logo">
+          <span class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5C7.5 5 3.73 8.11 2 12C3.73 15.89 7.5 19 12 19C16.5 19 20.27 15.89 22 12C20.27 8.11 16.5 5 12 5Z" stroke="url(#cureeye-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3" fill="#10B981"/>
+              <defs>
+                <linearGradient id="cureeye-grad" x1="2" y1="12" x2="22" y2="12" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#8B5CF6"/>
+                  <stop offset="1" stop-color="#06B6D4"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </span>
+          CureEye
+        </a>
+
+        <div class="navbar-links" id="navLinks">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/dashboard.html" class="nav-link active">Dashboard</a>
+          <a href="/history.html" class="nav-link">History</a>
+        </div>
+
+        <div class="navbar-actions" id="navActions">
+          <span class="navbar-user-email" id="userEmail"></span>
+          <button class="btn btn-ghost btn-sm" id="signOutBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign out
+          </button>
+        </div>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="mobile-nav-overlay" id="mobileNav">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/dashboard.html" class="nav-link active">Dashboard</a>
+      <a href="/history.html" class="nav-link">History</a>
+      <span class="nav-link" id="mobileUserEmail" style="color:var(--text-muted);"></span>
+      <button class="btn btn-ghost" id="mobileSignOutBtn">Sign out</button>
+    </div>
+
+    <main class="dashboard-page">
+      <div class="container">
+        <!-- Header -->
+        <div class="dashboard-header">
+          <h1 class="heading-gradient">Scan Medicine</h1>
+          <p>Upload or capture a medicine image to get instant AI analysis</p>
+        </div>
+
+        <!-- Upload Zone -->
+        <div class="upload-zone glass-card-static" id="uploadZone">
+          <div class="upload-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </div>
+          <h3>Drop your medicine image here</h3>
+          <p class="upload-hint">or click to browse • PNG, JPG up to 10MB</p>
+          <div class="upload-actions">
+            <button class="btn btn-primary" id="browseFilesBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Browse Files
+            </button>
+            <button class="btn btn-secondary" id="useCameraBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              Use Camera
+            </button>
+          </div>
+          <input type="file" id="fileInput" accept="image/png,image/jpeg" hidden>
+          <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden>
+        </div>
+
+        <!-- Image Preview & Scanning UI -->
+        <div class="upload-preview" id="uploadPreview">
+          <div class="preview-image-container glass-card-static" id="previewContainer">
+            <img id="previewImage" src="" alt="Medicine preview">
+            <!-- Laser Scanner Overlay -->
+            <div class="scanner-overlay" id="scannerOverlay" style="display: none;">
+              <div class="scanner-laser"></div>
+            </div>
+          </div>
+          
+          <!-- Actions (Hidden during scan) -->
+          <div class="preview-actions" id="previewActions">
+            <button class="btn btn-primary btn-lg" id="analyzeMedicineBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Analyze Medicine
+            </button>
+            <button class="btn btn-secondary" id="cancelUploadBtn">Cancel</button>
+          </div>
+
+          <!-- Scanning Progress Details (Hidden initially) -->
+          <div class="scan-progress-text" id="scanProgressDetails" style="display: none;">
+            <div class="scan-status" id="scanStatus">Analyzing medicine...</div>
+            <div class="scan-substatus" id="scanSubstatus">Extracting visual features</div>
+            <div class="scan-progress-bar">
+              <div class="scan-progress-fill" id="scanProgressFill"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- View History -->
+        <div class="dashboard-footer" id="dashboardFooter">
+          <a href="/history.html">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            View Scan History
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="/js/main.js" type="module"></script>
+  <script src="/js/dashboard.js" type="module"></script>
+</body>
+</html>
