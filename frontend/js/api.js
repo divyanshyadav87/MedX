@@ -3,7 +3,8 @@
 // Central module for all backend communication
 // ===========================
 
-const API_BASE = 'http://localhost:5000/api';
+export const BASE_URL = 'https://cureeye.onrender.com';
+export const API_BASE = `${BASE_URL}/api`;
 
 // ---- Token Management ----
 export function getToken() {

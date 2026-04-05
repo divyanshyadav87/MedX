@@ -3,7 +3,7 @@
 // Connected to real backend API
 // ===========================
 import { requireAuth, showToast } from './main.js';
-import { identifyMedicine } from './api.js';
+import { identifyMedicine, BASE_URL } from './api.js';
 
 function init() {
   const user = requireAuth();
@@ -151,7 +151,7 @@ function init() {
       // Store the result in sessionStorage for the results page
       const resultData = response.data;
       if (response.imageUrl) {
-        resultData.imageUrl = 'http://localhost:5000' + response.imageUrl;
+        resultData.imageUrl = BASE_URL + response.imageUrl;
       }
       sessionStorage.setItem('CureEye_last_result', JSON.stringify(resultData));
 
