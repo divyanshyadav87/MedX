@@ -3,174 +3,623 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Results — CureEye</title>
-  <meta name="description" content="Detailed medicine analysis results from CureEye.">
+  <title>Medical Report — CureEye</title>
+  <meta name="description" content="Detailed medical report analysis">
   <link rel="stylesheet" href="/css/globals.css">
   <link rel="stylesheet" href="/css/components.css">
-  <link rel="stylesheet" href="/css/results.css">
+  <style>
+    :root {
+      --bg-darker: #0d0f14;
+      --bg-panel: #141721;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --accent-blue: #3b82f6;
+      --accent-green: #22c55e;
+      --accent-red: #ef4444;
+      --accent-orange: #f97316;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    body {
+      background-color: var(--bg-darker);
+      color: var(--text-main);
+      font-family: 'Inter', system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* Top Navbar */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      background-color: var(--bg-darker);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 1.2rem 0;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover { color: white; }
+    .nav-links a.active {
+      color: var(--accent-blue);
+      border-bottom-color: var(--accent-blue);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      color: var(--text-muted);
+    }
+
+    /* Layout */
+    .page-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      min-height: calc(100vh - 64px);
+    }
+
+    /* Left Sidebar */
+    .left-sidebar {
+      padding-right: 1rem;
+      border-right: 1px solid var(--border-color);
+    }
+
+    .sidebar-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .sidebar-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      margin-bottom: 2rem;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-menu li a {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 1rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .sidebar-menu li a:hover, .sidebar-menu li a.active {
+      background-color: var(--bg-card);
+      color: white;
+    }
+
+    .sidebar-menu li a.active {
+      background-color: rgba(59, 130, 246, 0.1);
+      color: var(--accent-blue);
+    }
+
+    /* Main Content */
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Header Profile Card */
+    .profile-card {
+      background-color: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .score-circle {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: conic-gradient(var(--accent-blue) calc(var(--score) * 1%), rgba(255,255,255,0.1) 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .score-circle::before {
+      content: "";
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-color: var(--bg-panel);
+      border-radius: 50%;
+    }
+
+    .score-value {
+      position: relative;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .profile-details h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .status-badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-normal { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
+    .badge-attention { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.3);}
+
+    .profile-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .profile-actions {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .confidence-box {
+      text-align: right;
+    }
+    
+    .confidence-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.2rem;
+    }
+    
+    .confidence-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .export-btn {
+      background-color: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+    .export-btn:hover {
+      background-color: rgba(59, 130, 246, 0.25);
+    }
+
+    /* Alert Card */
+    .alert-card {
+      background-color: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      display: none; /* Controlled via JS */
+    }
+
+    .alert-icon {
+      color: var(--accent-red);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .alert-title {
+      color: #fca5a5;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .alert-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* Data Table Panel */
+    .data-panel {
+      background-color: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .panel-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .data-table th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 600;
+    }
+
+    .data-table td {
+      padding: 1rem 1.5rem;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+    .dot-normal { background-color: var(--accent-green); }
+    .dot-high { background-color: var(--accent-red); }
+    .dot-low { background-color: var(--accent-orange); }
+
+    /* Visual Charts Area */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .chart-card {
+      background-color: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .chart-header {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.5rem;
+      color: var(--text-muted);
+    }
+
+    .chart-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .chart-stat-value {
+      color: var(--text-main);
+    }
+    
+    .chart-alert {
+      color: var(--accent-red);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .chart-bar-container {
+      width: 100%;
+      height: 8px;
+      background-color: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      position: relative;
+      margin-bottom: 0.5rem;
+    }
+
+    .chart-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    /* Target Indicator */
+    .target-line {
+      position: absolute;
+      width: 2px;
+      height: 14px;
+      background-color: var(--accent-blue);
+      top: -3px;
+    }
+
+    .chart-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Left Sidebar / Action Plan styles */
+    .action-plan-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .plan-card {
+      background-color: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--accent-blue);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .plan-card.lifestyle {
+      border-left-color: var(--accent-orange);
+    }
+
+    .plan-card.monitor {
+      border-left-color: var(--accent-red);
+    }
+
+    .plan-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .plan-ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .plan-ul li {
+      position: relative;
+      padding-left: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+
+    .plan-ul li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: var(--text-muted);
+    }
+
+    .help-box {
+      background-color: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    .help-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .help-link {
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+  </style>
 </head>
 <body>
-  <canvas id="particles-canvas"></canvas>
-  <div class="ambient-glow"></div>
 
-  <div class="page-wrapper">
-    <!-- NAVBAR -->
-    <nav class="navbar" id="navbar">
-      <div class="container">
-        <a href="/" class="navbar-logo">
-          <span class="logo-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 5C7.5 5 3.73 8.11 2 12C3.73 15.89 7.5 19 12 19C16.5 19 20.27 15.89 22 12C20.27 8.11 16.5 5 12 5Z" stroke="url(#cureeye-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="12" cy="12" r="3" fill="#10B981"/>
-              <defs>
-                <linearGradient id="cureeye-grad" x1="2" y1="12" x2="22" y2="12" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#8B5CF6"/>
-                  <stop offset="1" stop-color="#06B6D4"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </span>
-          CureEye
-        </a>
+  <!-- Top Navbar -->
+  <nav class="top-nav">
+    <div class="nav-left">
+      <a href="/" class="brand">CureEye</a>
+      <div class="nav-links">
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/upload.html" class="active">Reports</a>
+        <a href="#">Patients</a>
+      </div>
+    </div>
+    <div class="nav-right">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      <div style="width:32px; height:32px; border-radius:50%; background:#1e293b; display:flex; align-items:center; justify-content:center;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+    </div>
+  </nav>
 
-        <div class="navbar-links" id="navLinks">
-          <a href="/" class="nav-link">Home</a>
-          <a href="/dashboard.html" class="nav-link">Dashboard</a>
-          <a href="/history.html" class="nav-link">History</a>
+  <div class="page-layout">
+    
+    <!-- Left Sidebar: Medical Action Plan -->
+    <aside class="left-sidebar">
+      <div class="action-plan-title">Medical Action Plan</div>
+      
+      <!-- Generated via JS -->
+      <div id="actionPlanContainer">
+        <div style="color:var(--text-muted); font-size:0.9rem;">Generating Action Plan...</div>
+      </div>
+
+      <div class="help-box">
+        <div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         </div>
+        <div class="help-text">
+          Need help understanding these results? <a href="#" class="help-link">Chat with AI Medic</a>
+        </div>
+      </div>
+    </aside>
 
-        <div class="navbar-actions" id="navActions">
-          <span class="navbar-user-email" id="userEmail"></span>
-          <button class="btn btn-ghost btn-sm" id="signOutBtn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            Sign out
+    <!-- Main Content -->
+    <main class="main-content">
+      
+      <!-- Profile Header -->
+      <div class="profile-card">
+        <div class="profile-info">
+          <div class="score-circle" style="--score: 85" id="overallScoreRing">
+            <span class="score-value" id="overallScoreText">85</span>
+          </div>
+          <div class="profile-details">
+            <h2>
+              <span id="patientNameDisplay">Patient Name</span>
+              <span class="status-badge badge-normal" id="overallStatusBadge">NORMAL</span>
+            </h2>
+            <div class="profile-meta">
+              <span id="patientAgeDisplay">Age: --</span>
+              <span id="patientGenderDisplay">Gender: --</span>
+              <span id="reportDateDisplay">Date: --</span>
+            </div>
+          </div>
+        </div>
+        <div class="profile-actions">
+          <div class="confidence-box">
+            <div class="confidence-label">AI CONFIDENCE</div>
+            <div class="confidence-value"><span id="aiConfidenceDisplay">--</span>%</div>
+          </div>
+          <button class="export-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export PDF
           </button>
         </div>
-
-        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-          <span class="hamburger-line"></span>
-        </button>
       </div>
-    </nav>
 
-    <div class="mobile-nav-overlay" id="mobileNav">
-      <a href="/" class="nav-link">Home</a>
-      <a href="/dashboard.html" class="nav-link">Dashboard</a>
-      <a href="/history.html" class="nav-link">History</a>
-      <span class="nav-link" id="mobileUserEmail" style="color:var(--text-muted);"></span>
-      <button class="btn btn-ghost" id="mobileSignOutBtn">Sign out</button>
-    </div>
-
-    <main class="results-page ethereal-theme">
-      <div class="container ethereal-container">
-        <!-- Top bar -->
-        <div class="results-topbar ethereal-topbar">
-          <a class="results-back" id="backBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-            Back
-          </a>
-          <div class="results-actions">
-            <button class="results-action-btn" id="favoriteBtn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-              Favorite
-            </button>
-            <button class="results-action-btn" id="shareBtn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-              Share
-            </button>
-          </div>
+      <!-- Critical Alert (Optional) -->
+      <div class="alert-card" id="criticalAlertCard">
+        <div class="alert-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         </div>
-
-        <div class="ethereal-layout">
-          <!-- Top Row -->
-          <div class="ethereal-top-section">
-            <div class="ethereal-hero-left">
-              <div class="ethereal-art-block glass-card-static">
-                <img id="uploadedMedicineImage" src="" alt="Scanned Medicine" style="display:none; width:100%; height:100%; object-fit:cover; position:absolute; z-index:1; border-radius:16px;">
-                <div class="abstract-glow" style="z-index:2;"></div>
-                <div class="abstract-scan-line" style="z-index:3;"></div>
-                <div id="artMedicineName" class="art-medicine-text" style="z-index:4;">Loading...</div>
-              </div>
-            </div>
-
-            <div class="ethereal-hero-right">
-              <div class="ethereal-header">
-                <div class="ethereal-badges" id="etherealBadges"></div>
-                <h1 id="medicineNameEthereal">Loading...</h1>
-                <div class="ethereal-generic" id="medicineGenericEthereal"></div>
-              </div>
-              
-              <div class="ethereal-top-cards">
-                <div class="ethereal-card ethereal-price ethereal-accent-green">
-                   <div class="ethereal-tiny-label">APPROXIMATE PRICE</div>
-                   <div class="ethereal-price-value" id="priceValue">--</div>
-                </div>
-                <div class="ethereal-card ethereal-uses ethereal-accent-purple">
-                   <div class="ethereal-tiny-label">PRIMARY USES</div>
-                   <div class="ethereal-uses-list" id="usesList"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Middle Grid -->
-          <div class="ethereal-middle-grid">
-            <div class="ethereal-card ethereal-dosage">
-               <div class="ethereal-card-header dosage-header">
-                 <div class="ethereal-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-                 <h3>Dosage</h3>
-               </div>
-               <p id="dosageText" class="ethereal-text">...</p>
-               <div class="ethereal-pill-box">As prescribed by doctor</div>
-            </div>
-
-            <div class="ethereal-card ethereal-warnings ethereal-accent-red wide-cell">
-               <div class="ethereal-card-header warning-header">
-                 <div class="ethereal-icon red-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-                 <h3 class="red-text">Clinical Warnings</h3>
-               </div>
-               <div class="ethereal-inner-warnings-grid" id="warningsGrid"></div>
-            </div>
-
-            <div class="ethereal-card ethereal-side-effects wide-cell" style="position:relative;">
-               <div class="ethereal-card-header side-effects-header">
-                 <div class="ethereal-icon amber-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-                 <h3>Common Side Effects</h3>
-               </div>
-               <div class="ethereal-pills-row" id="sideEffectsPills"></div>
-               <div class="disclaimer-text">*If these symptoms persist, consult your healthcare provider immediately.</div>
-               <a href="/dashboard.html" class="ethereal-floating-cta">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4v4h4M21 4v4h-4M21 20v-4h-4M3 20v-4h4"/><circle cx="12" cy="12" r="3"/></svg>
-                  Scan Another Medicine
-               </a>
-            </div>
-
-            <div class="ethereal-card ethereal-ingredients">
-               <div class="ethereal-card-header ingredients-header">
-                 <div class="ethereal-icon blue-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                 <h3>Ingredients</h3>
-               </div>
-               <div class="ethereal-tiny-label">ACTIVE SUBSTANCE</div>
-               <div id="ingredientsText" class="ethereal-ingredients-value ethereal-text"></div>
-            </div>
-            
-            <div class="ethereal-card ethereal-precautions full-width-cell">
-               <div class="ethereal-card-header precautions-header">
-                 <div class="ethereal-icon green-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-                 <h3>General Precautions</h3>
-               </div>
-               <div class="ethereal-precautions-list" id="precautionsPills"></div>
-            </div>
-          </div>
+        <div>
+          <div class="alert-title">Critical Value Detected</div>
+          <div class="alert-desc" id="criticalAlertText"></div>
         </div>
-
       </div>
+
+      <!-- Panels Container for Data Tables -->
+      <div id="dataPanelsContainer">
+        <!-- JS Injected Tables -->
+      </div>
+
+      <!-- Charts Data Container -->
+      <div class="charts-grid" id="chartsGridContainer">
+        <!-- JS Injected Charts -->
+      </div>
+      
     </main>
+
   </div>
 
-  <div class="toast-container" id="toastContainer"></div>
+  <footer style="text-align:center;padding:2rem;color:var(--text-muted);font-size:0.8rem;border-top:1px solid var(--border-color);">
+    <div style="display:flex;justify-content:center;gap:2rem;margin-bottom:1rem;">
+      <a href="#" style="color:var(--text-muted);text-decoration:none;">Terms</a>
+      <a href="#" style="color:var(--text-muted);text-decoration:none;">Privacy</a>
+      <a href="#" style="color:var(--text-muted);text-decoration:none;">Support</a>
+    </div>
+    &copy; 2024 CureEye Health. This report is for informational purposes and not a substitute for professional medical advice.<br>This is AI-generated and not a clinical diagnosis.
+  </footer>
 
-  <script src="/js/main.js" type="module"></script>
-  <script src="/js/results.js" type="module"></script>
+  <script src="/js/report_results.js" type="module"></script>
 </body>
 </html>

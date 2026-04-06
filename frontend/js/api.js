@@ -3,20 +3,21 @@
 // Central module for all backend communication
 // ===========================
 
-export const BASE_URL = 'https://cureeye.onrender.com';
+// Allow dynamic host resolution for network access
+export const BASE_URL = `http://${window.location.hostname}:5000`;
 export const API_BASE = `${BASE_URL}/api`;
 
 // ---- Token Management ----
 export function getToken() {
-  return localStorage.getItem('CureEye_token');
+  return localStorage.getItem('MedX_token');
 }
 
 export function setToken(token) {
-  localStorage.setItem('CureEye_token', token);
+  localStorage.setItem('MedX_token', token);
 }
 
 export function clearToken() {
-  localStorage.removeItem('CureEye_token');
+  localStorage.removeItem('MedX_token');
 }
 
 // ---- Generic Fetch Helper ----
@@ -44,7 +45,7 @@ async function apiFetch(endpoint, options = {}) {
   // Handle 401 (expired/invalid token)
   if (res.status === 401) {
     clearToken();
-    localStorage.removeItem('CureEye_user');
+    localStorage.removeItem('MedX_user');
     // Don't redirect if already on auth pages
     if (!window.location.pathname.includes('login') && !window.location.pathname.includes('signup')) {
       window.location.href = '/login.html';
@@ -70,7 +71,7 @@ export async function registerUser(name, email, password) {
   });
   // Save token and user info
   setToken(data.data.token);
-  localStorage.setItem('CureEye_user', JSON.stringify(data.data.user));
+  localStorage.setItem('MedX_user', JSON.stringify(data.data.user));
   return data;
 }
 
@@ -81,7 +82,7 @@ export async function loginUser(email, password) {
   });
   // Save token and user info
   setToken(data.data.token);
-  localStorage.setItem('CureEye_user', JSON.stringify(data.data.user));
+  localStorage.setItem('MedX_user', JSON.stringify(data.data.user));
   return data;
 }
 

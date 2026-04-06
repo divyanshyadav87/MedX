@@ -38,13 +38,13 @@ async function init() {
 
   // Try to load from sessionStorage first (just scanned), then fallback to API
   let medicine = null;
-  const cached = sessionStorage.getItem('CureEye_last_result');
+  const cached = sessionStorage.getItem('MedX_last_result');
 
   if (cached) {
     const parsed = JSON.parse(cached);
     if (parsed.id === medicineId) {
       medicine = parsed;
-      sessionStorage.removeItem('CureEye_last_result');
+      sessionStorage.removeItem('MedX_last_result');
     }
   }
 
@@ -115,7 +115,7 @@ function renderMedicine(med) {
     imgEl.style.display = 'block';
   }
 
-  document.title = `${medName} — CureEye`;
+  document.title = `${medName} — MedX`;
 
   // Badges
   const badgesContainer = document.getElementById('etherealBadges');

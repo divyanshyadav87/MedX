@@ -12,10 +12,12 @@ export default defineConfig({
         dashboard: resolve(__dirname, 'dashboard.html'),
         history: resolve(__dirname, 'history.html'),
         results: resolve(__dirname, 'results.html'),
+        upload: resolve(__dirname, 'upload.html'),
       },
     },
   },
   server: {
+    host: true,
     port: 5173,
     open: true,
   },

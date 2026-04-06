@@ -1,4 +1,4 @@
-# 🏥 CureEye Backend API
+# 🏥 ScanRx Backend API
 
 AI-Powered Medicine Identification System — Express.js + MongoDB + OpenAI
 

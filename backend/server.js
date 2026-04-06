@@ -1,5 +1,5 @@
 // ============================================================
-//  CureEye Backend Server
+//  ScanRx Backend Server
 //  AI-Powered Medicine Identification System
 // ============================================================
 //  Entry point. Configures Express, connects to MongoDB,
@@ -30,7 +30,7 @@ connectDB();
 // CORS – allow frontend origin
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "*",
+    origin: true, // reflects the connecting origin to allow any network IP
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
@@ -98,7 +98,7 @@ app.use("/api/medicines/identify", uploadLimiter);
 app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
-    message: "🏥 CureEye API is running",
+    message: "🏥 MedX API is running",
     version: "1.0.0",
     endpoints: {
       auth: "/api/auth",
@@ -122,6 +122,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/medicines", require("./routes/medicineRoutes"));
 app.use("/api/user", require("./routes/userRoutes"));
+app.use("/api", require("./routes/reportRoutes"));
 
 // ============================================================
 // 404 Handler – for unmatched routes
@@ -145,11 +146,11 @@ app.use(errorHandler);
 // ============================================================
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, "0.0.0.0", () => {
   console.log(`
   ╔══════════════════════════════════════════╗
   ║                                          ║
-  ║   🏥  CureEye API Server                ║
+  ║   🏥  ScanRx API Server                ║
   ║   📡  Port: ${PORT}                        ║
   ║   🌍  Env:  ${process.env.NODE_ENV || "development"}               ║
   ║   📁  Uploads: ./uploads/               ║

@@ -1,0 +1,135 @@
+{
+  "Hemoglobin": [
+    { "gender": "male", "age_min": 18, "age_max": 60, "min": 13, "max": 17, "unit": "g/dL", "category": "CBC" },
+    { "gender": "female", "age_min": 18, "age_max": 60, "min": 12, "max": 15, "unit": "g/dL", "category": "CBC" }
+  ],
+  "WBC": [
+    { "min": 4000, "max": 11000, "unit": "/µL", "category": "CBC" }
+  ],
+  "RBC": [
+    { "gender": "male", "min": 4.7, "max": 6.1, "unit": "million/µL", "category": "CBC" },
+    { "gender": "female", "min": 4.2, "max": 5.4, "unit": "million/µL", "category": "CBC" }
+  ],
+  "Platelets": [
+    { "min": 150000, "max": 450000, "unit": "/µL", "category": "CBC" }
+  ],
+  "Hematocrit": [
+    { "gender": "male", "min": 41, "max": 50, "unit": "%", "category": "CBC" },
+    { "gender": "female", "min": 36, "max": 44, "unit": "%", "category": "CBC" }
+  ],
+  "MCV": [
+    { "min": 80, "max": 100, "unit": "fL", "category": "CBC" }
+  ],
+  "MCH": [
+    { "min": 27, "max": 33, "unit": "pg", "category": "CBC" }
+  ],
+  "MCHC": [
+    { "min": 32, "max": 36, "unit": "g/dL", "category": "CBC" }
+  ],
+  "RDW": [
+    { "min": 11.5, "max": 14.5, "unit": "%", "category": "CBC" }
+  ],
+
+  "ALT": [
+    { "min": 7, "max": 56, "unit": "U/L", "category": "LFT" }
+  ],
+  "AST": [
+    { "min": 10, "max": 40, "unit": "U/L", "category": "LFT" }
+  ],
+  "ALP": [
+    { "min": 44, "max": 147, "unit": "U/L", "category": "LFT" }
+  ],
+  "Bilirubin Total": [
+    { "min": 0.3, "max": 1.2, "unit": "mg/dL", "category": "LFT" }
+  ],
+  "Bilirubin Direct": [
+    { "min": 0.1, "max": 0.3, "unit": "mg/dL", "category": "LFT" }
+  ],
+  "Albumin": [
+    { "min": 3.5, "max": 5.0, "unit": "g/dL", "category": "LFT" }
+  ],
+  "Total Protein": [
+    { "min": 6.0, "max": 8.3, "unit": "g/dL", "category": "LFT" }
+  ],
+
+  "Creatinine": [
+    { "gender": "male", "min": 0.74, "max": 1.35, "unit": "mg/dL", "category": "KFT" },
+    { "gender": "female", "min": 0.59, "max": 1.04, "unit": "mg/dL", "category": "KFT" }
+  ],
+  "Urea": [
+    { "min": 7, "max": 20, "unit": "mg/dL", "category": "KFT" }
+  ],
+  "Uric Acid": [
+    { "gender": "male", "min": 3.4, "max": 7.0, "unit": "mg/dL", "category": "KFT" },
+    { "gender": "female", "min": 2.4, "max": 6.0, "unit": "mg/dL", "category": "KFT" }
+  ],
+
+  "Sodium": [
+    { "min": 135, "max": 145, "unit": "mmol/L", "category": "Electrolytes" }
+  ],
+  "Potassium": [
+    { "min": 3.5, "max": 5.0, "unit": "mmol/L", "category": "Electrolytes" }
+  ],
+  "Chloride": [
+    { "min": 96, "max": 106, "unit": "mmol/L", "category": "Electrolytes" }
+  ],
+  "Calcium": [
+    { "min": 8.6, "max": 10.2, "unit": "mg/dL", "category": "Electrolytes" }
+  ],
+
+  "Cholesterol Total": [
+    { "min": 0, "max": 200, "unit": "mg/dL", "category": "Lipid" }
+  ],
+  "HDL": [
+    { "min": 40, "max": 60, "unit": "mg/dL", "category": "Lipid" }
+  ],
+  "LDL": [
+    { "min": 0, "max": 100, "unit": "mg/dL", "category": "Lipid" }
+  ],
+  "Triglycerides": [
+    { "min": 0, "max": 150, "unit": "mg/dL", "category": "Lipid" }
+  ],
+
+  "TSH": [
+    { "min": 0.4, "max": 4.0, "unit": "mIU/L", "category": "Thyroid" }
+  ],
+  "T3": [
+    { "min": 80, "max": 200, "unit": "ng/dL", "category": "Thyroid" }
+  ],
+  "T4": [
+    { "min": 5.0, "max": 12.0, "unit": "µg/dL", "category": "Thyroid" }
+  ],
+
+  "Glucose Fasting": [
+    { "min": 70, "max": 99, "unit": "mg/dL", "category": "Diabetes" }
+  ],
+  "Glucose Postprandial": [
+    { "min": 70, "max": 140, "unit": "mg/dL", "category": "Diabetes" }
+  ],
+  "HbA1c": [
+    { "min": 4.0, "max": 5.6, "unit": "%", "category": "Diabetes" }
+  ],
+
+  "CRP": [
+    { "min": 0, "max": 3.0, "unit": "mg/L", "category": "Inflammation" }
+  ],
+  "ESR": [
+    { "gender": "male", "min": 0, "max": 15, "unit": "mm/hr", "category": "Inflammation" },
+    { "gender": "female", "min": 0, "max": 20, "unit": "mm/hr", "category": "Inflammation" }
+  ],
+
+  "Vitamin D": [
+    { "min": 20, "max": 50, "unit": "ng/mL", "category": "Vitamins" }
+  ],
+  "Vitamin B12": [
+    { "min": 200, "max": 900, "unit": "pg/mL", "category": "Vitamins" }
+  ],
+
+  "Iron": [
+    { "min": 60, "max": 170, "unit": "µg/dL", "category": "Minerals" }
+  ],
+  "Ferritin": [
+    { "gender": "male", "min": 24, "max": 336, "unit": "ng/mL", "category": "Minerals" },
+    { "gender": "female", "min": 11, "max": 307, "unit": "ng/mL", "category": "Minerals" }
+  ]
+}

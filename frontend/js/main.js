@@ -1,13 +1,15 @@
 // ===========================
 // MAIN.JS — Shared functionality
-// Now integrated with backend API
+// Now integrated with backend API + i18n
 // ===========================
 import { getToken, clearToken } from './api.js';
+import { initLanguageToggle, applyTranslations, t } from './i18n.js';
+export { t, applyTranslations };
 
 // ---- Auth State Management ----
 export function getUser() {
   try {
-    const user = localStorage.getItem('CureEye_user');
+    const user = localStorage.getItem('MedX_user');
     const token = getToken();
     // Both user data AND valid token must exist
     if (user && token) return JSON.parse(user);
@@ -18,11 +20,11 @@ export function getUser() {
 }
 
 export function setUser(user) {
-  localStorage.setItem('CureEye_user', JSON.stringify(user));
+  localStorage.setItem('MedX_user', JSON.stringify(user));
 }
 
 export function clearUser() {
-  localStorage.removeItem('CureEye_user');
+  localStorage.removeItem('MedX_user');
   clearToken();
 }
 
@@ -238,6 +240,8 @@ function initNavbarScroll() {
 
 // ---- Initialize ----
 document.addEventListener('DOMContentLoaded', () => {
+  initLanguageToggle();
+  applyTranslations();
   initMobileMenu();
   initNavbarAuth();
   initScrollReveal();

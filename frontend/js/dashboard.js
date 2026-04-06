@@ -153,7 +153,7 @@ function init() {
       if (response.imageUrl) {
         resultData.imageUrl = BASE_URL + response.imageUrl;
       }
-      sessionStorage.setItem('CureEye_last_result', JSON.stringify(resultData));
+      sessionStorage.setItem('MedX_last_result', JSON.stringify(resultData));
 
       setTimeout(() => {
         window.location.href = `/results.html?id=${response.data.id}`;
