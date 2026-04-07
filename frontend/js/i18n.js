@@ -7,7 +7,7 @@ const translations = {
   en: {
     // --- Navbar ---
     nav_home: 'Home',
-    nav_dashboard: 'Dashboard',
+    nav_dashboard: 'Medicine Analyzer',
     nav_history: 'History',
     nav_login: 'Log in',
     nav_signup: 'Sign Up',
@@ -15,19 +15,76 @@ const translations = {
 
     // --- Home Hero ---
     hero_badge: 'AI-Powered Medicine Scanner',
-    hero_title_1: 'Scan Your Medicine. ',
-    hero_title_2: 'Know Everything.',
-    hero_subtitle: 'Upload a photo of any medicine and get instant AI-powered analysis — composition, uses, side effects, dosage, and more.',
+    hero_title_1: 'Understand Your Health Reports & Medicines — ',
+    hero_title_2: 'Instantly.',
+    hero_subtitle: 'Upload a medical report or scan any medicine to get AI-powered insights, normal ranges, side effects, and personalized explanations in seconds.',
     hero_upload: 'Upload Image',
     hero_demo: 'Try Demo',
     hero_trust_hipaa: 'HIPAA Compliant',
     hero_trust_medicines: '10K+ Medicines',
+    hero_btn_report: 'Analyze Report',
+    hero_btn_scan: 'Scan Medicine',
+    hero_avatar_text: 'Joining 50,000+ users across the globe',
 
     // --- Stats ---
     stat_scans: 'Scans Completed',
-    stat_medicines: 'Medicines in Database',
-    stat_accuracy: 'Accuracy Rate',
+    stat_medicines: 'MEDICINES',
+    stat_accuracy: 'ACCURACY',
     stat_availability: 'Availability',
+    stat_analyzed: 'ANALYZED',
+    stat_rating: 'USER RATING',
+
+    // --- Bento Section ---
+    bento_section_title: 'Precision Engineering for Health',
+    bento_tab_reports: 'Medical Reports',
+    bento_tab_scanner: 'Medicine Scanner',
+    bento_extract_title: 'Automated Data Extraction',
+    bento_extract_desc: 'Our clinical-grade OCR pipeline extracts text from documents with 99.9% accuracy.',
+    bento_abnorm_title: 'Abnormality Detection',
+    bento_abnorm_desc: 'Values outside normal bounds are highlighted and categorized with clear action points.',
+    bento_hemo_title: 'Hemoglobin 9.2 (Critical)',
+    bento_hemo_desc: 'Below average normal indicator. Recommended follow up: See a doctor.',
+    bento_noconfuse_title: 'No more confusing lab reports.',
+    bento_noconfuse_desc: 'Translate medical jargon into plain English. We explain exactly what your body is trying to tell you without the ambiguity.',
+    bento_medsec_title: 'Understand medicines in seconds.',
+    bento_aidoctor_title: 'AI that explains like a doctor.',
+    bento_aidoctor_desc: 'Interactive, clear, and medically accurate explanations tailored to your literacy level.',
+    bento_personal_title: 'Personalized to your age & gender',
+    bento_personal_desc: 'Context matters. We adapt reference ranges based on your demographic profile.',
+
+    // --- Trust Section ---
+    trust_title: 'Built for absolute trust.',
+    trust_desc: 'Medical data is sacred. Our architecture is built with privacy and accuracy as non-negotiable foundations.',
+    trust_soc2: 'SOC2 Type II Certified',
+    trust_encryption: 'End-to-End Encryption',
+    trust_context_title: 'Context-Aware Explanations',
+    trust_context_desc: 'We don\'t just provide a dictionary translation, but a context map.',
+    trust_strict_title: 'Strict Abnormality Detection',
+    trust_strict_desc: 'Our engine flags out-of-bounds metrics based on strict guidelines.',
+    trust_privacy_title: 'Privacy-First Architecture',
+    trust_privacy_desc: 'Your health data is not identified. All data is wiped immediately.',
+    trust_checks_title: 'Continuous Checks',
+    trust_checks_desc: 'Every insight comes from verifiable sources mapped rigorously.',
+
+    // --- Testimonials ---
+    testimonial_1_text: '"MedX is brilliant! I\'ve been looking for everywhere for clear, accurate medical information without paying a huge premium. It\'s truly amazing."',
+    testimonial_1_role: 'GENERAL PHYSICIAN, HOSPITAL VIP',
+    testimonial_2_text: '"The medical scanner provides reliable drug-drug interaction info. Steps that are easy to understand. It\'s like having a clinical professional in your pocket."',
+    testimonial_2_role: 'CLINICAL PHARMACIST',
+
+    // --- How It Works (homepage) ---
+    how_title: 'Insights in three simple steps.',
+    how_subtitle: 'Designed for speed. Engineered for precision.',
+    how_step1_title: '1. Upload or Scan',
+    how_step1_desc: 'Snap a photo of your report or medicine and drop it onto our portal.',
+    how_step2_title: '2. AI Analysis',
+    how_step2_desc: 'Our engine parses every metric, comparing it against global medical databases.',
+    how_step3_title: '3. Get Insights',
+    how_step3_desc: 'Receive a clear, actionable dashboard of your health data instantly.',
+
+    // --- CTA ---
+    cta_title: 'Stop Guessing Your Health Data.',
+    cta_subtitle: 'Get clear, AI-powered insights in seconds. Join 50,000+ users taking control of their health literacy.',
 
     // --- Features ---
     features_badge: 'Features',
@@ -144,7 +201,7 @@ const translations = {
     auth_signup_login_link: 'Sign in',
 
     // --- Dashboard ---
-    dash_title: 'Scan Medicine',
+    dash_title: 'Medicine Analyzer',
     dash_subtitle: 'Upload or capture a medicine image to get instant AI analysis',
     dash_drop: 'Drop your medicine image here',
     dash_browse_hint: 'or click to browse • PNG, JPG up to 10MB',
@@ -188,7 +245,7 @@ const translations = {
   hi: {
     // --- Navbar ---
     nav_home: 'होम',
-    nav_dashboard: 'डैशबोर्ड',
+    nav_dashboard: 'दवा विश्लेषक',
     nav_history: 'इतिहास',
     nav_login: 'लॉग इन',
     nav_signup: 'साइन अप',
@@ -196,19 +253,76 @@ const translations = {
 
     // --- Home Hero ---
     hero_badge: 'AI-संचालित दवा स्कैनर',
-    hero_title_1: 'अपनी दवा स्कैन करें। ',
-    hero_title_2: 'सब कुछ जानें।',
-    hero_subtitle: 'किसी भी दवा की फोटो अपलोड करें और तुरंत AI-संचालित विश्लेषण प्राप्त करें — संरचना, उपयोग, दुष्प्रभाव, खुराक, और बहुत कुछ।',
+    hero_title_1: 'अपनी स्वास्थ्य रिपोर्ट और दवाओं को समझें — ',
+    hero_title_2: 'तुरंत।',
+    hero_subtitle: 'एआई-संचालित अंतर्दृष्टि, सामान्य सीमा, दुष्प्रभाव और व्यक्तिगत स्पष्टीकरण सेकंडों में प्राप्त करने के लिए मेडिकल रिपोर्ट अपलोड करें या किसी भी दवा को स्कैन करें।',
     hero_upload: 'छवि अपलोड करें',
     hero_demo: 'डेमो देखें',
     hero_trust_hipaa: 'HIPAA अनुपालित',
     hero_trust_medicines: '10K+ दवाइयाँ',
+    hero_btn_report: 'रिपोर्ट विश्लेषण करें',
+    hero_btn_scan: 'दवा स्कैन करें',
+    hero_avatar_text: 'दुनिया भर में 50,000+ उपयोगकर्ता जुड़ रहे हैं',
 
     // --- Stats ---
     stat_scans: 'स्कैन पूर्ण',
-    stat_medicines: 'डेटाबेस में दवाइयाँ',
-    stat_accuracy: 'सटीकता दर',
+    stat_medicines: 'दवाइयाँ',
+    stat_accuracy: 'सटीकता',
     stat_availability: 'उपलब्धता',
+    stat_analyzed: 'विश्लेषित',
+    stat_rating: 'उपयोगकर्ता रेटिंग',
+
+    // --- Bento Section ---
+    bento_section_title: 'स्वास्थ्य के लिए सटीक इंजीनियरिंग',
+    bento_tab_reports: 'मेडिकल रिपोर्ट',
+    bento_tab_scanner: 'दवा स्कैनर',
+    bento_extract_title: 'स्वचालित डेटा निष्कर्षण',
+    bento_extract_desc: 'हमारी क्लिनिकल-ग्रेड OCR पाइपलाइन 99.9% सटीकता के साथ दस्तावेज़ों से टेक्स्ट निकालती है।',
+    bento_abnorm_title: 'असामान्यता पहचान',
+    bento_abnorm_desc: 'सामान्य सीमा से बाहर के मान को हाइलाइट और स्पष्ट कार्रवाई बिंदुओं के साथ वर्गीकृत किया जाता है।',
+    bento_hemo_title: 'हीमोग्लोबिन 9.2 (गंभीर)',
+    bento_hemo_desc: 'औसत सामान्य संकेतक से नीचे। अनुशंसित फॉलो अप: डॉक्टर से मिलें।',
+    bento_noconfuse_title: 'अब भ्रमित करने वाली लैब रिपोर्ट नहीं।',
+    bento_noconfuse_desc: 'चिकित्सा शब्दावली को सरल भाषा में अनुवादित करें। हम बिना अस्पष्टता के बताते हैं कि आपका शरीर क्या कह रहा है।',
+    bento_medsec_title: 'दवाओं को सेकंडों में समझें।',
+    bento_aidoctor_title: 'AI जो डॉक्टर की तरह समझाता है।',
+    bento_aidoctor_desc: 'आपकी समझ के स्तर के अनुरूप इंटरैक्टिव, स्पष्ट और चिकित्सकीय रूप से सटीक स्पष्टीकरण।',
+    bento_personal_title: 'आपकी उम्र और लिंग के अनुसार व्यक्तिगत',
+    bento_personal_desc: 'संदर्भ मायने रखता है। हम आपकी जनसांख्यिकीय प्रोफ़ाइल के आधार पर संदर्भ श्रेणियाँ अनुकूलित करते हैं।',
+
+    // --- Trust Section ---
+    trust_title: 'पूर्ण विश्वास के लिए बनाया गया।',
+    trust_desc: 'चिकित्सा डेटा पवित्र है। हमारी वास्तुकला गोपनीयता और सटीकता को अटल नींव के रूप में बनाई गई है।',
+    trust_soc2: 'SOC2 Type II प्रमाणित',
+    trust_encryption: 'एंड-टू-एंड एन्क्रिप्शन',
+    trust_context_title: 'संदर्भ-जागरूक स्पष्टीकरण',
+    trust_context_desc: 'हम केवल शब्दकोश अनुवाद नहीं देते, बल्कि एक संदर्भ मानचित्र प्रदान करते हैं।',
+    trust_strict_title: 'सख्त असामान्यता पहचान',
+    trust_strict_desc: 'हमारा इंजन सख्त दिशानिर्देशों के आधार पर सीमा से बाहर के मेट्रिक्स को चिह्नित करता है।',
+    trust_privacy_title: 'गोपनीयता-पहले वास्तुकला',
+    trust_privacy_desc: 'आपके स्वास्थ्य डेटा की पहचान नहीं की जाती। सभी डेटा तुरंत मिटा दी जाती है।',
+    trust_checks_title: 'निरंतर जाँच',
+    trust_checks_desc: 'हर अंतर्दृष्टि सत्यापन योग्य स्रोतों से कठोरता से मैप की जाती है।',
+
+    // --- Testimonials ---
+    testimonial_1_text: '"MedX शानदार है! मैं हर जगह स्पष्ट, सटीक चिकित्सा जानकारी ढूंढ रहा था बिना बड़ा प्रीमियम चुकाए। यह वास्तव में अद्भुत है।"',
+    testimonial_1_role: 'सामान्य चिकित्सक, हॉस्पिटल VIP',
+    testimonial_2_text: '"मेडिकल स्कैनर विश्वसनीय दवा-दवा इंटरैक्शन जानकारी देता है। समझने में आसान कदम। यह जेब में एक क्लिनिकल पेशेवर होने जैसा है।"',
+    testimonial_2_role: 'क्लिनिकल फार्मासिस्ट',
+
+    // --- How It Works (homepage) ---
+    how_title: 'तीन सरल चरणों में अंतर्दृष्टि।',
+    how_subtitle: 'गति के लिए डिज़ाइन किया गया। सटीकता के लिए इंजीनियर किया गया।',
+    how_step1_title: '1. अपलोड या स्कैन करें',
+    how_step1_desc: 'अपनी रिपोर्ट या दवा की फोटो लें और हमारे पोर्टल पर डालें।',
+    how_step2_title: '2. AI विश्लेषण',
+    how_step2_desc: 'हमारा इंजन हर मेट्रिक को पार्स करता है, इसे वैश्विक चिकित्सा डेटाबेस से तुलना करता है।',
+    how_step3_title: '3. अंतर्दृष्टि प्राप्त करें',
+    how_step3_desc: 'तुरंत अपने स्वास्थ्य डेटा का स्पष्ट, कार्रवाई योग्य डैशबोर्ड प्राप्त करें।',
+
+    // --- CTA ---
+    cta_title: 'अपने स्वास्थ्य डेटा का अनुमान लगाना बंद करें।',
+    cta_subtitle: 'सेकंडों में स्पष्ट, AI-संचालित अंतर्दृष्टि प्राप्त करें। 50,000+ उपयोगकर्ता अपनी स्वास्थ्य साक्षरता पर नियंत्रण ले रहे हैं।',
 
     // --- Features ---
     features_badge: 'विशेषताएँ',
@@ -325,7 +439,7 @@ const translations = {
     auth_signup_login_link: 'साइन इन करें',
 
     // --- Dashboard ---
-    dash_title: 'दवा स्कैन करें',
+    dash_title: 'दवा विश्लेषक',
     dash_subtitle: 'तत्काल AI विश्लेषण के लिए दवा की छवि अपलोड या कैप्चर करें',
     dash_drop: 'अपनी दवा की छवि यहाँ डालें',
     dash_browse_hint: 'या ब्राउज़ करने के लिए क्लिक करें • PNG, JPG 10MB तक',

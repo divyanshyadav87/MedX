@@ -71,7 +71,8 @@ html {
 
 body {
   font-family: var(--font-family);
-  background-color: var(--bg-primary);
+  background: radial-gradient(ellipse at top, #0c1220 0%, var(--bg-primary) 100%);
+  background-attachment: fixed;
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
@@ -277,23 +278,23 @@ input {
 .ambient-glow::before {
   content: '';
   position: absolute;
-  top: -20%;
-  left: -10%;
-  width: 40%;
-  height: 40%;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
-  animation: float 8s ease-in-out infinite;
+  top: -30%;
+  left: -20%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.05) 0%, transparent 60%);
+  animation: float 12s ease-in-out infinite;
 }
 
 .ambient-glow::after {
   content: '';
   position: absolute;
-  bottom: -20%;
-  right: -10%;
-  width: 40%;
-  height: 40%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
-  animation: float 10s ease-in-out infinite reverse;
+  bottom: -30%;
+  right: -20%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.04) 0%, transparent 60%);
+  animation: float 15s ease-in-out infinite reverse;
 }
 
 /* Particle canvas */
